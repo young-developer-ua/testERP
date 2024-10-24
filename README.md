@@ -33,7 +33,7 @@ echo. > database\database.sqlite
 
 ### 5. Build and Project:
 ```bash
-docker-compose up -d
+docker-compose up --build
 ```
 
 ### 6. Connect to Docker VM:
