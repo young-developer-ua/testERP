@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo mbstring pdo_sqlite gd
 
+# Set the ServerName to suppress warnings
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
