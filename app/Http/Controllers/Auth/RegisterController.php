@@ -29,6 +29,6 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('profile.show')->with('success', 'Реєстрація успішна!');
+        return redirect()->route('profile.show', $user->id)->with('success', 'Реєстрація успішна!');
     }
 }

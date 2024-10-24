@@ -6,42 +6,46 @@
             @csrf
             <h2 class="text-center mb-4">Реєстрація</h2>
             <div class="form-group">
-                <label for="name">Ім'я</label>
+                <label for="name">Ім'я *</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Введіть ім'я" required>
                 @error('name')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="email">Email адреса</label>
+                <label for="email">Email адреса *</label>
                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Введіть email" required>
                 @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="password">Пароль</label>
+                <label for="password">Пароль *</label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Пароль" required>
                 @error('password')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="passwordConfirmation">Підтвердження пароля</label>
+                <label for="passwordConfirmation">Підтвердження пароля *</label>
                 <input type="password" class="form-control @error('passwordConfirmation') is-invalid @enderror" id="passwordConfirmation" name="passwordConfirmation" placeholder="Підтвердження пароля" required>
                 @error('passwordConfirmation')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="role_id">Роль</label>
+                <label for="role_id">Роль *</label>
                 <select class="form-control @error('role_id') is-invalid @enderror" id="role_id" name="role_id" required>
-                    <option value="2">Teamlead</option>
-                    <option value="3">Buyer</option>
+                    @foreach(App\Enums\RoleEnum::cases() as $role)
+                        @if ($role !== App\Enums\RoleEnum::ADMIN)
+                        <option value="{{ $role->value }}">{{ $role->name() }}</option>
+                        @endif
+                    @endforeach
                 </select>
                 @error('role_id')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <small class="form-text text-muted">Після вибору ролі змінити її не можна.</small>
             </div>
             <div class="form-group" id="teamLeadContainer" style="display: none;">
                 <label for="team_lead_id">Тімлід</label>
